@@ -1,0 +1,1094 @@
+{
+  "release": "astra_triage",
+  "about": "one row per statement the article makes; the status is read from the checks named in verified_by, never written by hand",
+  "total": 80,
+  "claims": [
+    {
+      "id": "K01",
+      "claim": "the endpoint is a surgical or percutaneous re-treatment within seven days of the index time",
+      "location": "Sec. 2.1",
+      "kind": "definition",
+      "symbols": [
+        "src/astra_triage/endpoints/definition.py:label",
+        "src/astra_triage/endpoints/definition.py:PRIMARY_WINDOW_HOURS"
+      ],
+      "verified_by": [
+        "E21",
+        "C01"
+      ],
+      "status": "PASS"
+    },
+    {
+      "id": "K02",
+      "claim": "a re-intervention after the window is a non-event for triage",
+      "location": "Sec. 2.1",
+      "kind": "definition",
+      "symbols": [
+        "src/astra_triage/endpoints/definition.py:label"
+      ],
+      "verified_by": [
+        "E21"
+      ],
+      "status": "PASS"
+    },
+    {
+      "id": "K03",
+      "claim": "the complement of an event is an escalated antibiotic course that improves without surgery",
+      "location": "Sec. 2.1",
+      "kind": "definition",
+      "symbols": [
+        "src/astra_triage/endpoints/definition.py:Outcome",
+        "src/astra_triage/endpoints/adjudication.py:outcome_from"
+      ],
+      "verified_by": [
+        "E21"
+      ],
+      "status": "PASS"
+    },
+    {
+      "id": "K04",
+      "claim": "two blind adjudicators decide the outcome, with a third when they disagree",
+      "location": "Table 8 footnote",
+      "kind": "method",
+      "symbols": [
+        "src/astra_triage/endpoints/adjudication.py:adjudicate"
+      ],
+      "verified_by": [
+        "E21"
+      ],
+      "status": "PASS"
+    },
+    {
+      "id": "K05",
+      "claim": "the estimator reads only observations stamped at or before the index time",
+      "location": "Eq. (1)",
+      "kind": "definition",
+      "symbols": [
+        "src/astra_triage/endpoints/definition.py:index_visible",
+        "src/astra_triage/streams/case.py:Episode.visible"
+      ],
+      "verified_by": [
+        "E22"
+      ],
+      "status": "PASS"
+    },
+    {
+      "id": "K06",
+      "claim": "the model is r = f(U, M, s) in [0, 1] over the two stamped sequences and the static vector",
+      "location": "Eq. (1)",
+      "kind": "method",
+      "symbols": [
+        "src/astra_triage/model/astra.py:Astra.forward"
+      ],
+      "verified_by": [
+        "E01"
+      ],
+      "status": "PASS"
+    },
+    {
+      "id": "K07",
+      "claim": "the estimator is count-blind: no count or monotone function of a count enters the model",
+      "location": "Sec. 2.3.0.1",
+      "kind": "method",
+      "symbols": [
+        "src/astra_triage/constraints/count_blind.py:audit",
+        "src/astra_triage/streams/case.py:_gaps"
+      ],
+      "verified_by": [
+        "E02",
+        "E03"
+      ],
+      "status": "PASS"
+    },
+    {
+      "id": "K08",
+      "claim": "the estimator is approximately unchanged by the position of a reading",
+      "location": "Sec. 2.3.0.1",
+      "kind": "method",
+      "symbols": [
+        "src/astra_triage/constraints/count_blind.py:permutation_deviation"
+      ],
+      "verified_by": [
+        "E02"
+      ],
+      "status": "PASS"
+    },
+    {
+      "id": "K09",
+      "claim": "a learned site probe on the merged representation is the instrument for the position test",
+      "location": "Sec. 2.3.0.1",
+      "kind": "method",
+      "symbols": [
+        "src/astra_triage/constraints/site_probe.py:probe",
+        "src/astra_triage/constraints/admissibility.py:assess"
+      ],
+      "verified_by": [
+        "E29"
+      ],
+      "status": "PASS"
+    },
+    {
+      "id": "K10",
+      "claim": "the elapsed time since the previous reading of a stream is an input, not noise",
+      "location": "Sec. 2.3.0.1",
+      "kind": "method",
+      "symbols": [
+        "src/astra_triage/streams/case.py:_gaps",
+        "src/astra_triage/model/time_encoding.py:TimeEncoder.features"
+      ],
+      "verified_by": [
+        "E02"
+      ],
+      "status": "PASS"
+    },
+    {
+      "id": "K11",
+      "claim": "the absence of a reading is represented explicitly",
+      "location": "Sec. 2.3.0.1",
+      "kind": "method",
+      "symbols": [
+        "src/astra_triage/model/missingness.py:MissingnessTokens"
+      ],
+      "verified_by": [
+        "E04",
+        "E05"
+      ],
+      "status": "PASS"
+    },
+    {
+      "id": "K12",
+      "claim": "cross-stream attention lets each ultrasound reading query the marker sequence and the reverse",
+      "location": "Eq. (2)",
+      "kind": "method",
+      "symbols": [
+        "src/astra_triage/model/cross_attention.py:CrossStreamAttention.forward"
+      ],
+      "verified_by": [
+        "C04",
+        "E01"
+      ],
+      "status": "PASS"
+    },
+    {
+      "id": "K13",
+      "claim": "the two attention branches are concatenated into Z",
+      "location": "Eq. (2)",
+      "kind": "method",
+      "symbols": [
+        "src/astra_triage/model/gating.py:StreamGate.forward"
+      ],
+      "verified_by": [
+        "E01"
+      ],
+      "status": "PASS"
+    },
+    {
+      "id": "K14",
+      "claim": "a gated pooling layer weights recency of observations and reliability of streams",
+      "location": "Sec. 2.3.0.2",
+      "kind": "method",
+      "symbols": [
+        "src/astra_triage/model/gating.py:RecencyPooling.forward",
+        "src/astra_triage/model/gating.py:StreamGate"
+      ],
+      "verified_by": [
+        "E02"
+      ],
+      "status": "PASS"
+    },
+    {
+      "id": "K15",
+      "claim": "the pooled vector is concatenated with the static embedding and scored by a two-layer head",
+      "location": "Sec. 2.3.0.2",
+      "kind": "method",
+      "symbols": [
+        "src/astra_triage/model/head.py:TriageHead",
+        "src/astra_triage/model/head.py:StaticEncoder"
+      ],
+      "verified_by": [
+        "E01"
+      ],
+      "status": "PASS"
+    },
+    {
+      "id": "K16",
+      "claim": "the static vector is age at surgery, procedure type and site",
+      "location": "Eq. (1), Sec. 2.3.0.1",
+      "kind": "definition",
+      "symbols": [
+        "src/astra_triage/streams/spec.py:STATIC_CONTINUOUS",
+        "src/astra_triage/streams/spec.py:PROCEDURES"
+      ],
+      "verified_by": [
+        "E01"
+      ],
+      "status": "PASS"
+    },
+    {
+      "id": "K17",
+      "claim": "a learned missingness embedding is added to the newest reading when it is older than 24 hours",
+      "location": "Sec. 2.3.0.3",
+      "kind": "method",
+      "symbols": [
+        "src/astra_triage/model/missingness.py:MissingnessTokens.forward"
+      ],
+      "verified_by": [
+        "E05"
+      ],
+      "status": "PASS"
+    },
+    {
+      "id": "K18",
+      "claim": "a structurally absent stream carries its own token rather than a stale one",
+      "location": "Table 1 footnote",
+      "kind": "method",
+      "symbols": [
+        "src/astra_triage/model/missingness.py:MissingnessTokens.absent_embedding"
+      ],
+      "verified_by": [
+        "E04"
+      ],
+      "status": "PASS"
+    },
+    {
+      "id": "K19",
+      "claim": "a decay function sets the importance of a reading from its age",
+      "location": "Sec. 2.3.0.3",
+      "kind": "method",
+      "symbols": [
+        "src/astra_triage/observation/decay.py:decay_weight",
+        "src/astra_triage/model/gating.py:RecencyPooling"
+      ],
+      "verified_by": [
+        "E02"
+      ],
+      "status": "PASS"
+    },
+    {
+      "id": "K20",
+      "claim": "a site adapter accounts for reporting practice and needs only the site of origin at inference",
+      "location": "Sec. 2.3.0.3",
+      "kind": "method",
+      "symbols": [
+        "src/astra_triage/model/site_adapter.py:SiteAdapter"
+      ],
+      "verified_by": [
+        "C04",
+        "E26"
+      ],
+      "status": "PASS"
+    },
+    {
+      "id": "K21",
+      "claim": "a gradient reversal term prevents the merged representation from encoding the site",
+      "location": "Sec. 2.3.0.3",
+      "kind": "method",
+      "symbols": [
+        "src/astra_triage/objectives/site_loss.py:reverse_gradient",
+        "src/astra_triage/model/astra.py:Astra.forward"
+      ],
+      "verified_by": [
+        "E24",
+        "E26"
+      ],
+      "status": "PASS"
+    },
+    {
+      "id": "K22",
+      "claim": "the objective is the class-weighted cross-entropy plus two weighted penalties",
+      "location": "Eq. (3)",
+      "kind": "method",
+      "symbols": [
+        "src/astra_triage/objectives/composite.py:composite_loss"
+      ],
+      "verified_by": [
+        "E06",
+        "E10"
+      ],
+      "status": "PASS"
+    },
+    {
+      "id": "K23",
+      "claim": "class weights follow the effective-number principle",
+      "location": "Sec. 2.3.0.4",
+      "kind": "method",
+      "symbols": [
+        "src/astra_triage/objectives/effective_number.py:class_weights"
+      ],
+      "verified_by": [
+        "E10"
+      ],
+      "status": "PASS"
+    },
+    {
+      "id": "K24",
+      "claim": "the calibration penalty is the squared deviation of bin means from bin event rates, per batch",
+      "location": "Sec. 2.3.0.4",
+      "kind": "method",
+      "symbols": [
+        "src/astra_triage/objectives/calibration.py:decile_penalty"
+      ],
+      "verified_by": [
+        "E11"
+      ],
+      "status": "PASS"
+    },
+    {
+      "id": "K25",
+      "claim": "the two penalty weights are fitted on the derivation cohort alone",
+      "location": "Sec. 2.3.0.4",
+      "kind": "method",
+      "symbols": [
+        "src/astra_triage/training/optim.py:TrainConfig"
+      ],
+      "verified_by": [
+        "C03"
+      ],
+      "status": "PASS"
+    },
+    {
+      "id": "K26",
+      "claim": "the two observation streams are the ultrasound descriptors and the blood markers",
+      "location": "Sec. 1",
+      "kind": "definition",
+      "symbols": [
+        "src/astra_triage/streams/spec.py:ULTRASOUND_FIELDS",
+        "src/astra_triage/streams/spec.py:MARKER_FIELDS"
+      ],
+      "verified_by": [
+        "E01"
+      ],
+      "status": "PASS"
+    },
+    {
+      "id": "K27",
+      "claim": "the marker panel carries ratios derived from the reported counts",
+      "location": "Sec. 1",
+      "kind": "definition",
+      "symbols": [
+        "src/astra_triage/streams/spec.py:derive_marker_ratios"
+      ],
+      "verified_by": [
+        "E01"
+      ],
+      "status": "PASS"
+    },
+    {
+      "id": "K28",
+      "claim": "the external cohort records no ultrasound stream, so that stream is absent rather than missing",
+      "location": "Table 1 footnote",
+      "kind": "method",
+      "symbols": [
+        "src/astra_triage/model/missingness.py:MissingnessTokens.absent_embedding"
+      ],
+      "verified_by": [
+        "E04"
+      ],
+      "status": "PASS"
+    },
+    {
+      "id": "K29",
+      "claim": "the comparison table holds eight arms scored on identical records",
+      "location": "Table 2",
+      "kind": "method",
+      "symbols": [
+        "src/astra_triage/comparators/registry.py:build"
+      ],
+      "verified_by": [
+        "E28",
+        "E01"
+      ],
+      "status": "PASS"
+    },
+    {
+      "id": "K30",
+      "claim": "the unconstrained baseline is a late-fusion transformer that may read the sampling counts",
+      "location": "Table 2; Sec. 3.2",
+      "kind": "method",
+      "symbols": [
+        "src/astra_triage/comparators/late_fusion.py:LateFusionTransformer",
+        "src/astra_triage/comparators/late_fusion.py:_LateFusionNet._counts"
+      ],
+      "verified_by": [
+        "E01",
+        "E03"
+      ],
+      "status": "PASS"
+    },
+    {
+      "id": "K31",
+      "claim": "the sequence baselines are a temporal fusion transformer and a decaying recurrent network",
+      "location": "Table 2",
+      "kind": "method",
+      "symbols": [
+        "src/astra_triage/comparators/tft.py:TFT",
+        "src/astra_triage/comparators/grud.py:GRUD"
+      ],
+      "verified_by": [
+        "E28"
+      ],
+      "status": "PASS"
+    },
+    {
+      "id": "K32",
+      "claim": "the last-value logistic arm discards the age of each reading",
+      "location": "Table 2; Sec. 1",
+      "kind": "method",
+      "symbols": [
+        "src/astra_triage/comparators/last_value.py:last_value_matrix"
+      ],
+      "verified_by": [
+        "E28"
+      ],
+      "status": "PASS"
+    },
+    {
+      "id": "K33",
+      "claim": "the two clinical rules are implemented as instruments and map to a probability through a fitted link",
+      "location": "Table 2",
+      "kind": "method",
+      "symbols": [
+        "src/astra_triage/comparators/pews.py:PaediatricEarlyWarning",
+        "src/astra_triage/comparators/pas.py:PaediatricAppendicitisScore"
+      ],
+      "verified_by": [
+        "E28"
+      ],
+      "status": "PASS"
+    },
+    {
+      "id": "K34",
+      "claim": "the single-marker rule reads the last C-reactive protein and nothing else",
+      "location": "Table 2; abstract",
+      "kind": "method",
+      "symbols": [
+        "src/astra_triage/comparators/crp_rule.py:last_crp"
+      ],
+      "verified_by": [
+        "E17"
+      ],
+      "status": "PASS"
+    },
+    {
+      "id": "K35",
+      "claim": "AUROC is computed on mid-ranks with the DeLong variance",
+      "location": "Table 2",
+      "kind": "method",
+      "symbols": [
+        "src/astra_triage/metrics/discrimination.py:auroc",
+        "src/astra_triage/metrics/discrimination.py:auroc_variance"
+      ],
+      "verified_by": [
+        "E14",
+        "E16"
+      ],
+      "status": "PASS"
+    },
+    {
+      "id": "K36",
+      "claim": "AUPRC is the step-wise average precision",
+      "location": "Table 2",
+      "kind": "method",
+      "symbols": [
+        "src/astra_triage/metrics/discrimination.py:auprc"
+      ],
+      "verified_by": [
+        "E15"
+      ],
+      "status": "PASS"
+    },
+    {
+      "id": "K37",
+      "claim": "sensitivity, specificity and the predictive values are read at the pre-specified 0.20 threshold",
+      "location": "Table 2 footnote",
+      "kind": "method",
+      "symbols": [
+        "src/astra_triage/metrics/operating.py:at_threshold",
+        "src/astra_triage/metrics/operating.py:ppv_from"
+      ],
+      "verified_by": [
+        "E17",
+        "E18"
+      ],
+      "status": "PASS"
+    },
+    {
+      "id": "K38",
+      "claim": "calibration is reported as the expected calibration error, the Brier score and the recalibration slope",
+      "location": "Table 2",
+      "kind": "method",
+      "symbols": [
+        "src/astra_triage/metrics/calibration.py:expected_calibration_error",
+        "src/astra_triage/metrics/calibration.py:calibration_slope"
+      ],
+      "verified_by": [
+        "E12",
+        "E13",
+        "E19"
+      ],
+      "status": "PASS"
+    },
+    {
+      "id": "K39",
+      "claim": "differences are paired bootstrap estimates over 2,000 resamples",
+      "location": "Table 2 footnote",
+      "kind": "method",
+      "symbols": [
+        "src/astra_triage/metrics/bootstrap.py:paired_difference"
+      ],
+      "verified_by": [
+        "E16"
+      ],
+      "status": "PASS"
+    },
+    {
+      "id": "K40",
+      "claim": "between-site heterogeneity is I-squared on site-specific logit areas",
+      "location": "Table 4",
+      "kind": "method",
+      "symbols": [
+        "src/astra_triage/metrics/heterogeneity.py:from_areas"
+      ],
+      "verified_by": [
+        "M20"
+      ],
+      "status": "FAIL"
+    },
+    {
+      "id": "K41",
+      "claim": "the sparsity strata are defined by the fraction of unobserved stream-days",
+      "location": "Table 6 panel B",
+      "kind": "definition",
+      "symbols": [
+        "src/astra_triage/observation/sparsity.py:day_absence",
+        "src/astra_triage/observation/sparsity.py:stratum"
+      ],
+      "verified_by": [
+        "E23"
+      ],
+      "status": "PASS"
+    },
+    {
+      "id": "K42",
+      "claim": "the pre-specified subgroups are the four age bands and three recorded backgrounds",
+      "location": "Table 6 panel A",
+      "kind": "definition",
+      "symbols": [
+        "src/astra_triage/cohort/strata.py:STRATA"
+      ],
+      "verified_by": [
+        "E34"
+      ],
+      "status": "PASS"
+    },
+    {
+      "id": "K43",
+      "claim": "the high-sparsity stratum is the pooled unobserved share at or above 0.40",
+      "location": "Table 6 panel A",
+      "kind": "definition",
+      "symbols": [
+        "src/astra_triage/cohort/strata.py:HIGH_SPARSITY_EDGE"
+      ],
+      "verified_by": [
+        "E23"
+      ],
+      "status": "PASS"
+    },
+    {
+      "id": "K44",
+      "claim": "the reading study has three arms and is summarised per reader",
+      "location": "Table 7",
+      "kind": "method",
+      "symbols": [
+        "src/astra_triage/evaluation/reading.py:summarise"
+      ],
+      "verified_by": [
+        "E31"
+      ],
+      "status": "PASS"
+    },
+    {
+      "id": "K45",
+      "claim": "net benefit is reported at the 0.20 threshold with the treat-all reference",
+      "location": "Abstract",
+      "kind": "method",
+      "symbols": [
+        "src/astra_triage/metrics/net_benefit.py:net_benefit",
+        "src/astra_triage/evaluation/decision.py:table"
+      ],
+      "verified_by": [
+        "E17",
+        "M37"
+      ],
+      "status": "PASS"
+    },
+    {
+      "id": "K46",
+      "claim": "the ablation removes a component at its input, not by zeroing a learned tensor",
+      "location": "Table 3",
+      "kind": "method",
+      "symbols": [
+        "src/astra_triage/evaluation/ablation.py:drop_stream"
+      ],
+      "verified_by": [
+        "E04"
+      ],
+      "status": "PASS"
+    },
+    {
+      "id": "K47",
+      "claim": "the additive bound is the rank average of the two single-stream scores",
+      "location": "Table 3 last row",
+      "kind": "method",
+      "symbols": [
+        "src/astra_triage/evaluation/ablation.py:additive_bound"
+      ],
+      "verified_by": [
+        "M15"
+      ],
+      "status": "FAIL"
+    },
+    {
+      "id": "K48",
+      "claim": "leave-one-site-out refits on the remaining sites and scores the held-out one",
+      "location": "Table 4 panel B",
+      "kind": "method",
+      "symbols": [
+        "src/astra_triage/evaluation/sites.py:leave_one_site_out"
+      ],
+      "verified_by": [
+        "E30"
+      ],
+      "status": "PASS"
+    },
+    {
+      "id": "K49",
+      "claim": "the two prospective windows are consecutive and cover different children",
+      "location": "Table 9",
+      "kind": "method",
+      "symbols": [
+        "src/astra_triage/evaluation/deployment.py:DeploymentRecord"
+      ],
+      "verified_by": [
+        "M36"
+      ],
+      "status": "PASS"
+    },
+    {
+      "id": "K50",
+      "claim": "the appendix property: the last-observation estimator is biased when sampling is informative",
+      "location": "Sec. 2.3.0.1",
+      "kind": "method",
+      "symbols": [
+        "src/astra_triage/properties/locf_bias.py:gap_information"
+      ],
+      "verified_by": [
+        "E32"
+      ],
+      "status": "PASS"
+    },
+    {
+      "id": "K51",
+      "claim": "the appendix property: the counting estimator is calibrated in the cohort and biased outside it",
+      "location": "Sec. 2.3.0.1",
+      "kind": "method",
+      "symbols": [
+        "src/astra_triage/properties/counting_estimator.py:selection_bias"
+      ],
+      "verified_by": [
+        "E32"
+      ],
+      "status": "PASS"
+    },
+    {
+      "id": "K52",
+      "claim": "the appendix property: an unconstrained estimator cannot do worse than an admissible one",
+      "location": "Sec. 2.3.0.1",
+      "kind": "method",
+      "symbols": [
+        "src/astra_triage/properties/dominance.py:dominance"
+      ],
+      "verified_by": [
+        "E32"
+      ],
+      "status": "PASS"
+    },
+    {
+      "id": "K53",
+      "claim": "the sampling process is modelled as state-dependent intensity",
+      "location": "Sec. 1",
+      "kind": "method",
+      "symbols": [
+        "src/astra_triage/observation/process.py:SamplingProcess"
+      ],
+      "verified_by": [
+        "E32"
+      ],
+      "status": "PASS"
+    },
+    {
+      "id": "K54",
+      "claim": "the training schedule is not reported in the article and is released as a stated default",
+      "location": "Sec. 2.4",
+      "kind": "method",
+      "symbols": [
+        "src/astra_triage/training/optim.py:TrainConfig"
+      ],
+      "verified_by": [
+        "C02",
+        "C03"
+      ],
+      "status": "PASS"
+    },
+    {
+      "id": "K55",
+      "claim": "the record is read from a caller-supplied table; no episode ships with the release",
+      "location": "Data statement",
+      "kind": "method",
+      "symbols": [
+        "src/astra_triage/cohort/reader.py:read_episodes"
+      ],
+      "verified_by": [
+        "E33"
+      ],
+      "status": "PASS"
+    },
+    {
+      "id": "K56",
+      "claim": "a patient never straddles two splits",
+      "location": "Table 1",
+      "kind": "method",
+      "symbols": [
+        "src/astra_triage/cohort/split.py:assert_patient_disjoint"
+      ],
+      "verified_by": [
+        "E33"
+      ],
+      "status": "PASS"
+    },
+    {
+      "id": "K57",
+      "claim": "the derivation cohort holds 3,412 episodes from five sites",
+      "location": "Table 1",
+      "kind": "result",
+      "symbols": [
+        "src/astra_triage/cohort/split.py:site_distribution"
+      ],
+      "verified_by": [
+        "R01"
+      ],
+      "status": "BLOCKED"
+    },
+    {
+      "id": "K58",
+      "claim": "the model reaches an AUROC of 0.871 on the temporal hold-out",
+      "location": "Table 2",
+      "kind": "result",
+      "symbols": [
+        "src/astra_triage/evaluation/arms.py:evaluate"
+      ],
+      "verified_by": [
+        "R04"
+      ],
+      "status": "BLOCKED"
+    },
+    {
+      "id": "K59",
+      "claim": "the paired difference against late fusion is -0.3 percentage points",
+      "location": "Table 2 footnote",
+      "kind": "result",
+      "symbols": [
+        "src/astra_triage/evaluation/arms.py:paired_delta"
+      ],
+      "verified_by": [
+        "R05",
+        "M11"
+      ],
+      "status": "BLOCKED"
+    },
+    {
+      "id": "K60",
+      "claim": "the constrained model's calibration error is 0.026",
+      "location": "Table 2",
+      "kind": "result",
+      "symbols": [
+        "src/astra_triage/metrics/calibration.py:expected_calibration_error"
+      ],
+      "verified_by": [
+        "R04"
+      ],
+      "status": "BLOCKED"
+    },
+    {
+      "id": "K61",
+      "claim": "removing the ultrasound stream costs 5.9 points",
+      "location": "Table 3",
+      "kind": "result",
+      "symbols": [
+        "src/astra_triage/evaluation/ablation.py:drop_stream"
+      ],
+      "verified_by": [
+        "R06",
+        "M14"
+      ],
+      "status": "BLOCKED"
+    },
+    {
+      "id": "K62",
+      "claim": "the additive bound of the two single-stream models is 0.847",
+      "location": "Table 3",
+      "kind": "result",
+      "symbols": [
+        "src/astra_triage/evaluation/ablation.py:additive_bound"
+      ],
+      "verified_by": [
+        "R07",
+        "M15"
+      ],
+      "status": "FAIL"
+    },
+    {
+      "id": "K63",
+      "claim": "the interaction gain is 2.4 percentage points",
+      "location": "Table 3",
+      "kind": "result",
+      "symbols": [
+        "src/astra_triage/evaluation/ablation.py:interaction_gain"
+      ],
+      "verified_by": [
+        "R08",
+        "M16"
+      ],
+      "status": "BLOCKED"
+    },
+    {
+      "id": "K64",
+      "claim": "the two smallest sites show a 5.4 to 5.5 point advantage",
+      "location": "Table 4; abstract",
+      "kind": "result",
+      "symbols": [
+        "src/astra_triage/evaluation/sites.py:per_site"
+      ],
+      "verified_by": [
+        "R09",
+        "M40"
+      ],
+      "status": "BLOCKED"
+    },
+    {
+      "id": "K65",
+      "claim": "the held-out-site area is 0.866 when the largest site is removed",
+      "location": "Table 4 panel B",
+      "kind": "result",
+      "symbols": [
+        "src/astra_triage/evaluation/sites.py:leave_one_site_out"
+      ],
+      "verified_by": [
+        "R10",
+        "M21"
+      ],
+      "status": "BLOCKED"
+    },
+    {
+      "id": "K66",
+      "claim": "the transported model reaches 0.842 on the external resource",
+      "location": "Table 5",
+      "kind": "result",
+      "symbols": [
+        "src/astra_triage/evaluation/arms.py:evaluate"
+      ],
+      "verified_by": [
+        "R11",
+        "M23"
+      ],
+      "status": "BLOCKED"
+    },
+    {
+      "id": "K67",
+      "claim": "the external calibration slope is 0.93",
+      "location": "Table 5",
+      "kind": "result",
+      "symbols": [
+        "src/astra_triage/metrics/calibration.py:calibration_slope"
+      ],
+      "verified_by": [
+        "R11"
+      ],
+      "status": "BLOCKED"
+    },
+    {
+      "id": "K68",
+      "claim": "infants under one year show a 2.3 point advantage",
+      "location": "Table 6",
+      "kind": "result",
+      "symbols": [
+        "src/astra_triage/evaluation/subgroups.py:subgroup_table"
+      ],
+      "verified_by": [
+        "R12",
+        "M26"
+      ],
+      "status": "BLOCKED"
+    },
+    {
+      "id": "K69",
+      "claim": "the very-high-sparsity band shows 0.038 against 0.094 calibration error",
+      "location": "Table 6; abstract",
+      "kind": "result",
+      "symbols": [
+        "src/astra_triage/evaluation/subgroups.py:sparsity_table"
+      ],
+      "verified_by": [
+        "R13",
+        "M29"
+      ],
+      "status": "BLOCKED"
+    },
+    {
+      "id": "K70",
+      "claim": "model support lifts clinician AUROC from 0.762 to 0.894",
+      "location": "Table 7",
+      "kind": "result",
+      "symbols": [
+        "src/astra_triage/evaluation/reading.py:summarise"
+      ],
+      "verified_by": [
+        "R14",
+        "M31"
+      ],
+      "status": "BLOCKED"
+    },
+    {
+      "id": "K71",
+      "claim": "inter-reader agreement in the unaided arm is 0.58",
+      "location": "Table 7 footnote",
+      "kind": "result",
+      "symbols": [
+        "src/astra_triage/metrics/agreement.py:cohen_kappa"
+      ],
+      "verified_by": [
+        "R15",
+        "E20"
+      ],
+      "status": "BLOCKED"
+    },
+    {
+      "id": "K72",
+      "claim": "the silent window discriminates at 0.858 and the open-label window at 0.861",
+      "location": "Table 9",
+      "kind": "result",
+      "symbols": [
+        "src/astra_triage/evaluation/deployment.py:DeploymentPhase.discrimination"
+      ],
+      "verified_by": [
+        "R17"
+      ],
+      "status": "BLOCKED"
+    },
+    {
+      "id": "K73",
+      "claim": "median time to re-intervention falls from 27.6 to 19.8 hours",
+      "location": "Table 9",
+      "kind": "result",
+      "symbols": [
+        "src/astra_triage/evaluation/deployment.py:DeploymentRecord.table"
+      ],
+      "verified_by": [
+        "R17"
+      ],
+      "status": "BLOCKED"
+    },
+    {
+      "id": "K74",
+      "claim": "net benefit at 0.20 is 0.060 per episode",
+      "location": "Abstract",
+      "kind": "result",
+      "symbols": [
+        "src/astra_triage/metrics/net_benefit.py:net_benefit"
+      ],
+      "verified_by": [
+        "M37"
+      ],
+      "status": "PASS"
+    },
+    {
+      "id": "K75",
+      "claim": "net benefit of the single-marker rule at 0.20 is 0.033",
+      "location": "Abstract",
+      "kind": "result",
+      "symbols": [
+        "src/astra_triage/metrics/net_benefit.py:net_benefit"
+      ],
+      "verified_by": [
+        "M38"
+      ],
+      "status": "FAIL"
+    },
+    {
+      "id": "K76",
+      "claim": "the eight adjudicated cases span every direction of disagreement",
+      "location": "Table 8",
+      "kind": "result",
+      "symbols": [
+        "src/astra_triage/endpoints/definition.py:band"
+      ],
+      "verified_by": [
+        "R16"
+      ],
+      "status": "BLOCKED"
+    },
+    {
+      "id": "K77",
+      "claim": "the alert instrument cannot act on the record by itself",
+      "location": "Sec. 3.9",
+      "kind": "method",
+      "symbols": [
+        "src/astra_triage/evaluation/deployment.py:DeploymentPhase"
+      ],
+      "verified_by": [
+        "R17"
+      ],
+      "status": "BLOCKED"
+    },
+    {
+      "id": "K78",
+      "claim": "the threshold is fixed before the prospective windows and not re-assessed",
+      "location": "Sec. 3.9",
+      "kind": "method",
+      "symbols": [
+        "src/astra_triage/endpoints/definition.py:TRIAGE_THRESHOLD"
+      ],
+      "verified_by": [
+        "C01",
+        "R18"
+      ],
+      "status": "BLOCKED"
+    },
+    {
+      "id": "K79",
+      "claim": "the release ships no episode and every command that needs records takes a path",
+      "location": "Data statement",
+      "kind": "method",
+      "symbols": [
+        "src/astra_triage/cli/train.py:main"
+      ],
+      "verified_by": [
+        "H10"
+      ],
+      "status": "PASS"
+    },
+    {
+      "id": "K80",
+      "claim": "the configuration carries no value equal to a reported metric",
+      "location": "Release contract",
+      "kind": "method",
+      "symbols": [
+        "src/astra_triage/verification/conformance.py:checks"
+      ],
+      "verified_by": [
+        "C06"
+      ],
+      "status": "PASS"
+    }
+  ]
+}

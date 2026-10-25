@@ -1,0 +1,80 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "astra-triage"
+version = "1.0.0"
+description = "Cross-stream attentive representation for irregular ultrasound and inflammatory-marker trajectories in paediatric postoperative triage"
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "MIT" }
+dependencies = [
+    "numpy>=1.26,<3",
+    "scipy>=1.11,<2",
+    "torch>=2.2,<3",
+    "PyYAML>=6.0,<7",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0,<9",
+    "pytest-cov>=5.0,<7",
+    "mypy>=1.10,<2",
+    "ruff>=0.6,<1",
+    "black>=24.4,<26",
+    "isort>=5.13,<6",
+]
+
+[project.scripts]
+astra-train = "astra_triage.cli.train:main"
+astra-evaluate = "astra_triage.cli.evaluate:main"
+astra-score = "astra_triage.cli.score:main"
+astra-audit = "astra_triage.cli.audit:main"
+astra-verify = "astra_triage.cli.verify:main"
+
+[tool.setuptools]
+package-dir = { "" = "src" }
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]
+addopts = "-q --strict-markers"
+filterwarnings = ["error::DeprecationWarning:astra_triage.*"]
+
+[tool.black]
+line-length = 120
+target-version = ["py311"]
+
+[tool.isort]
+profile = "black"
+line_length = 100
+known_first_party = ["astra_triage", "support"]
+
+[tool.ruff]
+line-length = 120
+target-version = "py311"
+src = ["src", "tests"]
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "UP", "B", "C4", "SIM", "RUF"]
+ignore = ["B008", "RUF012"]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/*" = ["E501"]
+
+[tool.mypy]
+python_version = "3.11"
+strict = true
+warn_return_any = true
+warn_unreachable = true
+pretty = true
+files = ["src/astra_triage"]
+mypy_path = "src"
+
+[[tool.mypy.overrides]]
+module = ["scipy.*", "yaml.*"]
+ignore_missing_imports = true

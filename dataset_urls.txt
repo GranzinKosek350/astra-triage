@@ -1,0 +1,24 @@
+Paediatric Intensive Care database (PIC), version 1.1.0
+  role        the independent external cohort of Table 5 and the laboratory-pathway row
+  host        PhysioNet
+  landing     https://physionet.org/content/picdb/1.1.0/
+  doi         https://doi.org/10.13026/32x9-wv38
+  access      credentialed: registration, CITI "Data or Specimens Only Research" training,
+              and signature of the PhysioNet Credentialed Health Data Use Agreement
+  licence     PhysioNet Credentialed Health Data License 1.5.0
+  contents    de-identified admissions to the paediatric, surgical, cardiac and neonatal
+              intensive care units of a single children's hospital, 2010 to 2018
+  matches     the article's external window (2010 to 2018), its paediatric intensive-care
+              setting and its statement that the resource records no ultrasound stream
+  probe       2026-10-25: landing page 200, DOI resolves, dataset and licence text read from
+              the landing page; the record files themselves are behind the agreement and were
+              not downloaded
+  size        not measured here: access requires the agreement
+
+Private de-identified clinical cohorts
+  role        derivation, temporal hold-out, reading study, silent-mode and open-label windows
+  access      not distributed, not reconstructable, not re-hosted
+  note        five anonymous paediatric surgical sites, one temporal site, 24 clinicians and
+              three prospective sites. No episode, endpoint, checksum or derived descriptor
+              for these cohorts is published in this release. Every command that needs them
+              takes a caller-supplied table and stops without one.

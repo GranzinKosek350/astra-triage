@@ -1,0 +1,9 @@
+# Blood panel named in the introduction, plus the three ratios derived from it.
+stream: markers
+fields: [wbc_1e9_l, neutrophil_1e9_l, lymphocyte_1e9_l, platelet_1e9_l, crp_mg_l, procalcitonin_ng_ml]
+derived: [nlr, plr, nwr]
+units: [1e9/L, 1e9/L, 1e9/L, 1e9/L, mg/L, ng/mL]
+scales: [log_continuous, log_continuous, log_continuous, log_continuous, log_continuous, log_continuous]
+plausibility:
+  crp_mg_l: [0.1, 500.0]
+  procalcitonin_ng_ml: [0.01, 200.0]

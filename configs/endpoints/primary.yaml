@@ -1,0 +1,8 @@
+# The endpoint as the article defines it: a re-intervention inside seven days of the
+# index time, and a stream older than 24 hours treated as unknown rather than stable.
+threshold: 0.20
+window_hours: 168.0
+stale_after_hours: 24.0
+band_upper: 0.50
+index_policy: as_of_index
+non_event: antibiotic_escalation_without_surgery

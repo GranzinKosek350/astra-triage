@@ -1,0 +1,15 @@
+# Widths are engineering defaults: the article prints no architecture table.
+d_model: 128
+heads: 4
+encoder_hidden: 128
+head_hidden: 64
+gate_hidden: 64
+dropout: 0.10
+adapter_rank: 8
+capacity: 32
+periods: [6.0, 12.0, 24.0, 48.0, 96.0, 192.0]
+decay_hours: 48.0
+use_time_encoding: true
+use_cross_attention: true
+use_missingness_token: true
+use_site_adapter: true

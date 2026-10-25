@@ -1,0 +1,45 @@
+Third-party notices
+===================
+
+1. Paediatric Intensive Care database (PIC), version 1.1.0
+   Li H, Zeng X, Yu G. PhysioNet, 2020. DOI 10.13026/32x9-wv38.
+   PhysioNet Credentialed Health Data License 1.5.0, with the PhysioNet Credentialed
+   Health Data Use Agreement 1.5.0. The database is not redistributed here and no
+   record from it is included, quoted or derived in this release. The 2010 to 2018
+   window, the paediatric intensive-care setting and the absence of an ultrasound
+   stream are what identify it as the article's external cohort.
+
+2. Paediatric early-warning score
+   The banded instrument implemented in src/astra_triage/comparators/pews.py follows
+   the published family of paediatric early-warning scores (heart rate, respiratory
+   rate, systolic pressure, saturation, temperature and consciousness, scored against
+   age bands). The article prints no band table, so the bands and the percentage
+   deviation rule in that module are this release's implementation of the instrument
+   and are stated as such in the module docstring.
+
+3. Paediatric appendicitis score
+   The eight-item, ten-point instrument in src/astra_triage/comparators/pas.py follows
+   the published appendicitis score: migration, anorexia, nausea or vomiting, right
+   lower quadrant tenderness, rebound or cough tenderness, temperature above 38 C,
+   leukocytosis and a neutrophil shift. The item weights are the published ones.
+
+4. Temporal Fusion Transformer
+   The design implemented in src/astra_triage/comparators/tft.py follows Lim B,
+   Arik SO, Loeff N, Pfister T. "Temporal Fusion Transformers for interpretable
+   multi-horizon time series forecasting", International Journal of Forecasting 37
+   (2021) 1748-1764. The implementation here is a single-logit adaptation written for
+   this release; no code from the original is copied.
+
+5. GRU-D
+   The design implemented in src/astra_triage/comparators/grud.py follows Che Z,
+   Purushotham S, Cho K, Sontag D, Liu Y. "Recurrent neural networks for multivariate
+   time series with missing values", Scientific Reports 8 (2018). The implementation
+   is written for this release.
+
+6. TRIPOD+AI
+   The reporting structure the article follows is Collins GS, Moons KGM, Dhiman P,
+   et al. "TRIPOD+AI statement", BMJ 385 (2024) e078378. No text or code from the
+   statement is reproduced.
+
+7. PyTorch, NumPy, SciPy, PyYAML
+   Used under their own licences (BSD-3-Clause, BSD-3-Clause, BSD-3-Clause, MIT).

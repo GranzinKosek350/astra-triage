@@ -1,0 +1,15 @@
+name: baseline_crp_rule
+arm: crp
+model: astra
+streams:
+  ultrasound: ultrasound
+  markers: markers
+static: static
+endpoint: primary
+optimisation: adamw_cosine
+epochs: 1
+batch_size: 32
+grad_accumulation: 1
+world_size: 1
+seeds: [20260825, 20260826, 20260827, 20260828, 20260829]
+# Table 2, row 'C-reactive protein threshold rule'.

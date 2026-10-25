@@ -1,0 +1,4 @@
+# Eq. (1) fixes the static vector: age at surgery, procedure type, site of surgery.
+static: [age_at_surgery_years]
+procedures: [resection_with_anastomosis, enterostomy_formation_or_closure, laparotomy_for_perforation, other_bowel_procedure, appendicectomy]
+sites: [A, B, C, D, E]

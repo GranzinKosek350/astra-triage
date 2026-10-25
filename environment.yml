@@ -1,0 +1,17 @@
+name: astra-triage
+channels:
+  - pytorch
+  - conda-forge
+dependencies:
+  - python=3.11
+  - numpy>=1.26,<3
+  - scipy>=1.11,<2
+  - pytorch>=2.2,<3
+  - pyyaml>=6.0,<7
+  - pip
+  - pip:
+      - pytest>=8.0,<9
+      - mypy>=1.10,<2
+      - ruff>=0.6,<1
+      - black>=24.4,<26
+      - isort>=5.13,<6

@@ -1,0 +1,120 @@
+ASTRA triage release - verification summary
+
+overall status      : PARTIALLY_VERIFIED
+code status         : PASS
+manuscript status   : FAIL
+checks              : 81 pass, 10 fail, 19 blocked, 0 not run
+claims              : 80 mapped, 57 pass, 4 fail, 19 blocked, 0 not run
+
+Manuscript checks
+  M01 PASS    the derivation event share is the ratio of its event count to its episode count
+  M02 PASS    the temporal event share is the ratio of its event count to its episode count
+  M03 PASS    the external event share is the ratio of its event count to its episode count
+  M04 PASS    no cohort holds more patients than episodes
+  M05 PASS    the per-site counts sum to the derivation cohort and its event count
+  M06 FAIL    positive predictive value follows from sensitivity, specificity and prevalence
+  M07 FAIL    negative predictive value follows from sensitivity, specificity and prevalence
+  M08 FAIL    each printed interval is the size a single-AUROC standard error supports at 79 events
+  M09 PASS    every precision-recall area exceeds the event prevalence of the evaluation set
+  M10 PASS    every row's Brier score is at least the square of its calibration error
+  M11 PASS    the paired difference is the difference of the two printed areas
+  M12 PASS    the printed interval for the paired difference contains the printed difference
+  M13 PASS    the reported p-value is consistent with an interval that spans zero
+  M14 PASS    each ablation change is the row's area minus the full model's area
+  M15 FAIL    the additive bound equals the average of the two single-stream areas
+  M16 PASS    the interaction gain is the full area minus the printed bound
+  M17 PASS    the printed interval for the interaction gain contains the gain
+  M18 PASS    the full model's calibration error is the one the ablation table repeats
+  M19 PASS    the two smallest sites show the advantage the section reports
+  M20 FAIL    the printed I-squared values follow from the printed site areas and counts
+  M21 PASS    the lowest held-out-site area is the one obtained with the largest site removed
+  M22 FAIL    each leave-one-site-out interval is the size its own held-out count supports
+  M23 PASS    the external drop is about three percentage points from the internal area
+  M24 FAIL    the sensitivity and specificity of the transported model are the printed pair
+  M25 PASS    every transported row loses discrimination against its internal counterpart
+  M26 PASS    each subgroup difference is the constrained area minus the unconstrained area
+  M27 PASS    the four age groups partition the derivation cohort
+  M28 FAIL    the note reports the discrimination lost between the lowest and highest sparsity bands
+  M29 PASS    the calibration-error reduction in the sparsest band is the printed share
+  M30 PASS    the slope advantage in the sparsest band is the printed 0.91 against 0.71
+  M31 PASS    the supported-minus-unaided gap is the difference of the two printed areas
+  M32 PASS    the supported-minus-model gap is the difference of the two printed areas
+  M33 PASS    both printed intervals for the reading gaps contain their point estimates
+  M34 PASS    the supported arm gains on both operating columns at once
+  M35 PASS    each prospective prevalence is the ratio of its event count to its episode count
+  M36 PASS    the two prospective windows hold different children
+  M37 PASS    the model's net benefit at 0.20 follows from its printed operating point
+  M38 FAIL    the single-marker rule's net benefit at 0.20 follows from its printed operating point
+  M39 PASS    the abstract's headline area and interval are the table's first row
+  M40 PASS    the two smallest sites carry the stated 5.4 to 5.5 point advantage
+  M41 FAIL    the ablation prose ranks the three component costs as the table does
+
+Execution checks
+  E01 PASS    the fused model returns one finite probability per episode for several batch sizes
+  E02 PASS    duplicating every reading leaves the probability unchanged
+  E03 PASS    the count-blind probe detects an estimator that reads the count
+  E04 PASS    a structurally absent stream still produces a score and changes it
+  E05 PASS    the missingness token fires beyond 24 hours and not at 24 hours
+  E06 PASS    the composite loss reaches every trainable parameter
+  E07 PASS    an optimiser step moves the weights
+  E08 PASS    a checkpoint restores the logits and carries the seed
+  E09 PASS    one batch is fitted below half its starting loss inside 120 steps
+  E10 PASS    the class-weighted cross-entropy is ln 2 when balanced and larger when not
+  E11 PASS    the batch calibration penalty vanishes on an aligned batch
+  E12 PASS    expected calibration error is small when calibrated and large when shifted
+  E13 PASS    the Brier score equals its definition on a hand-built example
+  E14 PASS    the area under the curve equals the pairwise tally including ties
+  E15 PASS    average precision equals the step formula on a hand-built example
+  E16 PASS    the DeLong interval brackets its point estimate and has positive variance
+  E17 PASS    net benefit equals the counted form on a hand-built cohort
+  E18 PASS    the predictive-value identities close against counted confusion cells
+  E19 PASS    the recalibration slope is one for a well-specified predictor and below one when overconfident
+  E20 PASS    Cohen's kappa equals its closed form on a hand-built table
+  E21 PASS    the endpoint closes at day seven and excludes day eight
+  E22 PASS    the index-time filter removes every later observation
+  E23 PASS    the unobserved stream-day share matches a hand-counted four-day episode
+  E24 PASS    the gradient reversal flips the sign at the requested strength
+  E25 PASS    seeding makes two batch builds identical
+  E26 PASS    the site head reaches the encoder through the reversal path
+  E27 PASS    the model size sits in the range the default configuration declares
+  E28 PASS    every registered arm builds, fits where it has a fit, and returns a finite score
+  E29 PASS    a fresh site probe fits on frozen representations and returns an accuracy
+  E30 PASS    leave-one-site-out refits and scores the held-out site
+  E31 PASS    the reading study summarises three arms and returns both gaps
+  E32 PASS    the three appendix properties return finite numbers on draws from their model
+  E33 PASS    an episode table survives a write and read, and a straddling patient is refused
+  E34 PASS    the eight pre-specified subgroups are defined once each
+
+Record checks (blocked: the cohort is not distributed)
+  R01 BLOCKED needs the five-site derivation cohort: the derivation event count, site counts and calendar window
+  R02 BLOCKED needs the held-out temporal cohort (612 episodes): the temporal cohort counts and its 12.9% event share
+  R03 BLOCKED needs the credentialed paediatric intensive-care resource (1042 episodes): the external cohort counts and its 11.3% event share
+  R04 BLOCKED needs the held-out temporal cohort (612 episodes): the eight comparison rows of the temporal validation table
+  R05 BLOCKED needs the held-out temporal cohort (612 episodes): the paired interval and p-value for ASTRA against late fusion
+  R06 BLOCKED needs the held-out temporal cohort (612 episodes): the ablation rows and their calibration errors
+  R07 BLOCKED needs the held-out temporal cohort (612 episodes): the additive bound computed from the two single-stream scores
+  R08 BLOCKED needs the held-out temporal cohort (612 episodes): the interaction gain and its interval
+  R09 BLOCKED needs the five-site derivation cohort: the per-site areas for the three arms
+  R10 BLOCKED needs the five-site derivation cohort: the leave-one-site-out refits
+  R11 BLOCKED needs the credentialed paediatric intensive-care resource (1042 episodes): the four transported rows and their calibration
+  R12 BLOCKED needs the held-out temporal cohort (612 episodes): the eight subgroup rows
+  R13 BLOCKED needs the held-out temporal cohort (612 episodes): the four sparsity bands and their calibration
+  R14 BLOCKED needs the reader-level table of the three-arm study: the three reading arms and both gaps
+  R15 BLOCKED needs the reader-level table of the three-arm study: inter-reader agreement in the unaided arm
+  R16 BLOCKED needs the private record of the two prospective windows: the eight adjudicated cases and their score trajectories
+  R17 BLOCKED needs the private record of the two prospective windows: the two prospective windows
+  R18 BLOCKED needs the private record of the two prospective windows: the threshold fixed at 0.20 before the prospective windows opened
+  R19 BLOCKED needs the held-out temporal cohort (612 episodes): the calibration slope and intercept of the constrained model
+
+Hygiene
+  H01 PASS    no file carries an absolute path from a build host
+  H02 PASS    no file carries a credential-shaped string or an address
+  H03 PASS    README.md is the only markdown file in the tree
+  H04 PASS    no file carries a phrase that frames the code as someone else's work
+  H05 PASS    no file carries an emoji
+  H06 PASS    no file carries an unfinished marker
+  H07 PASS    every function in the package has a body that computes something
+  H08 PASS    no block of six statements is repeated across two modules
+  H09 PASS    every module is imported by another module, a test or a command
+  H10 PASS    no episode table, record export or archive ships with the release
+

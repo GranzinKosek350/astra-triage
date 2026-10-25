@@ -1,0 +1,9 @@
+# Descriptor vocabulary taken from the introduction, which names the five bedside
+# findings and the Doppler read-out. The method section prints no field list.
+stream: ultrasound
+fields: [wall_thickness_mm, peristalsis_grade, fluid_echogenicity, fluid_volume_ml, abscess_present, doppler_grade]
+scales: [log_continuous, ordinal, ordinal, log_continuous, binary, ordinal]
+units: [mm, grade, grade, mL, flag, grade]
+plausibility:
+  wall_thickness_mm: [0.4, 12.0]
+  fluid_volume_ml: [0.0, 800.0]

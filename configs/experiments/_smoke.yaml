@@ -1,0 +1,24 @@
+# for unit-test smoke only; do not use for reporting
+name: smoke
+test_only: true
+arm: astra
+model: astra
+streams:
+  ultrasound: ultrasound
+  markers: markers
+static: static
+endpoint: primary
+optimisation: adamw_cosine
+epochs: 2
+batch_size: 4
+grad_accumulation: 1
+world_size: 1
+seeds: [20260825]
+model_overrides:
+  d_model: 32
+  heads: 2
+  encoder_hidden: 32
+  head_hidden: 16
+  gate_hidden: 16
+  adapter_rank: 4
+  capacity: 16

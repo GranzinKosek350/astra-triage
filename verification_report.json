@@ -1,0 +1,1694 @@
+{
+  "release": {
+    "package": "astra_triage",
+    "version": "1.0.0",
+    "article": "Temporal Fusion of Postoperative Ultrasound and Inflammatory Markers for Intra-Abdominal Infection Triage",
+    "venue": "Frontiers"
+  },
+  "overall_status": "PARTIALLY_VERIFIED",
+  "code_status": "PASS",
+  "manuscript_status": "FAIL",
+  "environment": {
+    "python": "3.14.0",
+    "torch": "2.11.0",
+    "numpy": "2.4.3",
+    "implementation": "CPython",
+    "container": {
+      "dockerfile": "present",
+      "build": "NOT_RUN",
+      "reason": "the build host carries no container daemon; the image was not built here"
+    }
+  },
+  "counts": {
+    "PASS": 81,
+    "FAIL": 10,
+    "NOT_RUN": 0,
+    "BLOCKED": 19
+  },
+  "verification_layer_1": {
+    "what": "each article statement checked against its implementation and, where possible, against the article's own arithmetic",
+    "claims_total": 80,
+    "claims_by_status": {
+      "PASS": 57,
+      "FAIL": 4,
+      "BLOCKED": 19,
+      "NOT_RUN": 0
+    },
+    "claims_untested": [],
+    "manuscript_checks": [
+      {
+        "id": "M01",
+        "family": "manuscript",
+        "statement": "the derivation event share is the ratio of its event count to its episode count",
+        "location": "Table 1, row 'Episodes reaching the primary endpoint'",
+        "status": "PASS",
+        "observed": 12.544,
+        "expected": 12.5,
+        "tolerance": 0.05
+      },
+      {
+        "id": "M02",
+        "family": "manuscript",
+        "statement": "the temporal event share is the ratio of its event count to its episode count",
+        "location": "Table 1, row 'Episodes reaching the primary endpoint'",
+        "status": "PASS",
+        "observed": 12.9085,
+        "expected": 12.9,
+        "tolerance": 0.05
+      },
+      {
+        "id": "M03",
+        "family": "manuscript",
+        "statement": "the external event share is the ratio of its event count to its episode count",
+        "location": "Table 1, row 'Episodes reaching the primary endpoint'",
+        "status": "PASS",
+        "observed": 11.3244,
+        "expected": 11.3,
+        "tolerance": 0.05
+      },
+      {
+        "id": "M04",
+        "family": "manuscript",
+        "statement": "no cohort holds more patients than episodes",
+        "location": "Table 1, rows 'Episodes' and 'Patients'",
+        "status": "PASS",
+        "observed": {
+          "derivation": [
+            3186,
+            3412
+          ],
+          "temporal": [
+            592,
+            612
+          ],
+          "external": [
+            1015,
+            1042
+          ]
+        }
+      },
+      {
+        "id": "M05",
+        "family": "manuscript",
+        "statement": "the per-site counts sum to the derivation cohort and its event count",
+        "location": "Table 4 panel A",
+        "status": "PASS",
+        "observed": {
+          "episodes": 3412,
+          "events": 428
+        },
+        "expected": {
+          "episodes": 3412,
+          "events": 428
+        },
+        "note": "both sums must close on Table 1"
+      },
+      {
+        "id": "M06",
+        "family": "manuscript",
+        "statement": "positive predictive value follows from sensitivity, specificity and prevalence",
+        "location": "Table 2, columns PPV and Sensitivity/Specificity at the 0.20 threshold",
+        "status": "FAIL",
+        "observed": {
+          "astra": {
+            "printed": 0.376,
+            "implied": 0.3763,
+            "gap": 0.0003
+          },
+          "late_fusion": {
+            "printed": 0.377,
+            "implied": 0.3649,
+            "gap": -0.0121
+          },
+          "tft": {
+            "printed": 0.348,
+            "implied": 0.342,
+            "gap": -0.006
+          },
+          "grud": {
+            "printed": 0.328,
+            "implied": 0.3226,
+            "gap": -0.0054
+          },
+          "logistic": {
+            "printed": 0.276,
+            "implied": 0.2661,
+            "gap": -0.0099
+          },
+          "pews": {
+            "printed": 0.25,
+            "implied": 0.2421,
+            "gap": -0.0079
+          },
+          "crp_rule": {
+            "printed": 0.224,
+            "implied": 0.2171,
+            "gap": -0.0069
+          },
+          "appendicitis": {
+            "printed": 0.217,
+            "implied": 0.2105,
+            "gap": -0.0065
+          }
+        },
+        "expected": "every row within 0.002",
+        "tolerance": 0.002,
+        "note": "largest gap on the late_fusion row"
+      },
+      {
+        "id": "M07",
+        "family": "manuscript",
+        "statement": "negative predictive value follows from sensitivity, specificity and prevalence",
+        "location": "Table 2, columns NPV and Sensitivity/Specificity at the 0.20 threshold",
+        "status": "FAIL",
+        "observed": {
+          "astra": {
+            "printed": 0.965,
+            "implied": 0.9647,
+            "gap": -0.0003
+          },
+          "late_fusion": {
+            "printed": 0.965,
+            "implied": 0.9663,
+            "gap": 0.0013
+          },
+          "tft": {
+            "printed": 0.96,
+            "implied": 0.9612,
+            "gap": 0.0012
+          },
+          "grud": {
+            "printed": 0.955,
+            "implied": 0.9572,
+            "gap": 0.0022
+          },
+          "logistic": {
+            "printed": 0.944,
+            "implied": 0.9459,
+            "gap": 0.0019
+          },
+          "pews": {
+            "printed": 0.937,
+            "implied": 0.937,
+            "gap": 0.0
+          },
+          "crp_rule": {
+            "printed": 0.929,
+            "implied": 0.9283,
+            "gap": -0.0007
+          },
+          "appendicitis": {
+            "printed": 0.927,
+            "implied": 0.925,
+            "gap": -0.002
+          }
+        },
+        "expected": "every row within 0.002",
+        "tolerance": 0.002,
+        "note": "largest gap on the grud row"
+      },
+      {
+        "id": "M08",
+        "family": "manuscript",
+        "statement": "each printed interval is the size a single-AUROC standard error supports at 79 events",
+        "location": "Table 2, bracketed intervals; footnote on the paired bootstrap",
+        "status": "FAIL",
+        "observed": {
+          "astra": {
+            "printed_half_width": 0.0145,
+            "closed_form_half_width": 0.05138,
+            "ratio": 0.282
+          },
+          "late_fusion": {
+            "printed_half_width": 0.0145,
+            "closed_form_half_width": 0.0509,
+            "ratio": 0.285
+          },
+          "tft": {
+            "printed_half_width": 0.0165,
+            "closed_form_half_width": 0.05439,
+            "ratio": 0.303
+          },
+          "grud": {
+            "printed_half_width": 0.0175,
+            "closed_form_half_width": 0.05639,
+            "ratio": 0.31
+          },
+          "logistic": {
+            "printed_half_width": 0.02,
+            "closed_form_half_width": 0.06225,
+            "ratio": 0.321
+          },
+          "pews": {
+            "printed_half_width": 0.022,
+            "closed_form_half_width": 0.06496,
+            "ratio": 0.339
+          },
+          "crp_rule": {
+            "printed_half_width": 0.024,
+            "closed_form_half_width": 0.06696,
+            "ratio": 0.358
+          },
+          "appendicitis": {
+            "printed_half_width": 0.025,
+            "closed_form_half_width": 0.06735,
+            "ratio": 0.371
+          }
+        },
+        "expected": "printed half-width within 0.55 to 1.7 of the closed-form half-width",
+        "note": "the Hanley-McNeil variance is a closed form in the area and the two class counts, so this comparison needs no records; the printed intervals are three to four times narrower"
+      },
+      {
+        "id": "M09",
+        "family": "manuscript",
+        "statement": "every precision-recall area exceeds the event prevalence of the evaluation set",
+        "location": "Table 2, column AUPRC",
+        "status": "PASS",
+        "observed": {
+          "astra": 0.548,
+          "late_fusion": 0.552,
+          "tft": 0.497,
+          "grud": 0.459,
+          "logistic": 0.352,
+          "pews": 0.301,
+          "crp_rule": 0.262,
+          "appendicitis": 0.248
+        },
+        "expected": 0.1291
+      },
+      {
+        "id": "M10",
+        "family": "manuscript",
+        "statement": "every row's Brier score is at least the square of its calibration error",
+        "location": "Table 2, columns Brier and ECE",
+        "status": "PASS",
+        "observed": {
+          "astra": 0.0803,
+          "late_fusion": 0.0782,
+          "tft": 0.0846,
+          "grud": 0.0893,
+          "logistic": 0.0983,
+          "pews": 0.1043,
+          "crp_rule": 0.1094,
+          "appendicitis": 0.1108
+        },
+        "expected": "non-negative for every row"
+      },
+      {
+        "id": "M11",
+        "family": "manuscript",
+        "statement": "the paired difference is the difference of the two printed areas",
+        "location": "Table 2 footnote and abstract",
+        "status": "PASS",
+        "observed": -0.3,
+        "expected": -0.3,
+        "tolerance": 0.05
+      },
+      {
+        "id": "M12",
+        "family": "manuscript",
+        "statement": "the printed interval for the paired difference contains the printed difference",
+        "location": "Table 2 footnote",
+        "status": "PASS",
+        "observed": [
+          -1.9,
+          -0.3,
+          1.3
+        ]
+      },
+      {
+        "id": "M13",
+        "family": "manuscript",
+        "statement": "the reported p-value is consistent with an interval that spans zero",
+        "location": "Table 2 footnote, p = 0.71",
+        "status": "PASS",
+        "observed": 0.71,
+        "expected": "above 0.05 with an interval containing zero"
+      },
+      {
+        "id": "M14",
+        "family": "manuscript",
+        "statement": "each ablation change is the row's area minus the full model's area",
+        "location": "Table 3, column 'Change in AUROC vs full, pp'",
+        "status": "PASS",
+        "observed": {
+          "without_ultrasound": {
+            "printed": -5.9,
+            "recomputed": -5.9
+          },
+          "without_markers": {
+            "printed": -7.6,
+            "recomputed": -7.6
+          },
+          "without_time_encoding": {
+            "printed": -3.5,
+            "recomputed": -3.5
+          },
+          "without_cross_attention": {
+            "printed": -2.9,
+            "recomputed": -2.9
+          },
+          "without_missingness_token": {
+            "printed": -1.8,
+            "recomputed": -1.8
+          },
+          "without_site_adapter": {
+            "printed": -1.3,
+            "recomputed": -1.3
+          },
+          "additive_bound": {
+            "printed": -2.4,
+            "recomputed": -2.4
+          }
+        },
+        "expected": "every row within 0.1 percentage points",
+        "tolerance": 0.06,
+        "note": "largest gap on the without_ultrasound row"
+      },
+      {
+        "id": "M15",
+        "family": "manuscript",
+        "statement": "the additive bound equals the average of the two single-stream areas",
+        "location": "Table 3, last row and its footnote",
+        "status": "FAIL",
+        "observed": {
+          "printed_bound": 0.847,
+          "mean_of_single_stream_areas": 0.8035
+        },
+        "expected": "the average of the two single-stream areas",
+        "tolerance": 0.0006,
+        "note": "the footnote defines the row as the average of the two scores; the printed value is the area of an averaged score, which is a different quantity and need not equal the average of the areas"
+      },
+      {
+        "id": "M16",
+        "family": "manuscript",
+        "statement": "the interaction gain is the full area minus the printed bound",
+        "location": "Table 3 footnote and Sec. 3.3",
+        "status": "PASS",
+        "observed": 2.4,
+        "expected": 2.4,
+        "tolerance": 0.05
+      },
+      {
+        "id": "M17",
+        "family": "manuscript",
+        "statement": "the printed interval for the interaction gain contains the gain",
+        "location": "Table 3 footnote, 95% CI 0.6 to 4.2",
+        "status": "PASS",
+        "observed": 2.4,
+        "expected": [
+          0.6,
+          4.2
+        ]
+      },
+      {
+        "id": "M18",
+        "family": "manuscript",
+        "statement": "the full model's calibration error is the one the ablation table repeats",
+        "location": "Table 2 row ASTRA, column ECE; Table 3 row 'Full model'",
+        "status": "PASS",
+        "observed": 0.026,
+        "expected": 0.026
+      },
+      {
+        "id": "M19",
+        "family": "manuscript",
+        "statement": "the two smallest sites show the advantage the section reports",
+        "location": "Table 4 panel A and Sec. 3.4",
+        "status": "PASS",
+        "observed": {
+          "A": 0.3,
+          "B": -0.3,
+          "C": -0.3,
+          "D": 5.5,
+          "E": 5.4
+        },
+        "expected": "D and E above five percentage points"
+      },
+      {
+        "id": "M20",
+        "family": "manuscript",
+        "statement": "the printed I-squared values follow from the printed site areas and counts",
+        "location": "Table 4 panel A, heterogeneity sentence",
+        "status": "FAIL",
+        "observed": {
+          "astra": 0.0,
+          "late_fusion": 55.3,
+          "logistic": 0.0
+        },
+        "expected": {
+          "astra": 18.4,
+          "late_fusion": 54.7,
+          "logistic": 12.6
+        },
+        "tolerance": 1.0,
+        "note": "DerSimonian-Laird on the logit scale with the closed-form per-site variance; the article does not state which variance estimator it used"
+      },
+      {
+        "id": "M21",
+        "family": "manuscript",
+        "statement": "the lowest held-out-site area is the one obtained with the largest site removed",
+        "location": "Table 4 panel B and the sentence after it",
+        "status": "PASS",
+        "observed": {
+          "lowest_site": "A",
+          "auroc": 0.866
+        },
+        "expected": "Site A"
+      },
+      {
+        "id": "M22",
+        "family": "manuscript",
+        "statement": "each leave-one-site-out interval is the size its own held-out count supports",
+        "location": "Table 4 panel B, bracketed intervals",
+        "status": "FAIL",
+        "observed": {
+          "A": {
+            "printed_half_width": 0.0205,
+            "closed_form_half_width": 0.03759,
+            "ratio": 0.545
+          },
+          "B": {
+            "printed_half_width": 0.0195,
+            "closed_form_half_width": 0.0446,
+            "ratio": 0.437
+          },
+          "C": {
+            "printed_half_width": 0.0185,
+            "closed_form_half_width": 0.04961,
+            "ratio": 0.373
+          },
+          "D": {
+            "printed_half_width": 0.0185,
+            "closed_form_half_width": 0.06062,
+            "ratio": 0.305
+          },
+          "E": {
+            "printed_half_width": 0.0185,
+            "closed_form_half_width": 0.07978,
+            "ratio": 0.232
+          }
+        },
+        "expected": "printed half-width within 0.55 to 1.7 of the closed-form half-width",
+        "note": "the printed half-widths sit between 0.0185 and 0.0205 for held-out sites of 264 to 1,186 episodes; at 33 events the closed form is four times wider"
+      },
+      {
+        "id": "M23",
+        "family": "manuscript",
+        "statement": "the external drop is about three percentage points from the internal area",
+        "location": "Table 5 and Sec. 3.5",
+        "status": "PASS",
+        "observed": 2.9,
+        "expected": "about three percentage points"
+      },
+      {
+        "id": "M24",
+        "family": "manuscript",
+        "statement": "the sensitivity and specificity of the transported model are the printed pair",
+        "location": "Table 5 and the sentence '0.788 ... at both sensitivity and specificity'",
+        "status": "FAIL",
+        "observed": {
+          "sensitivity": 0.788,
+          "specificity": 0.771
+        },
+        "expected": "one shared value if the sentence is read literally",
+        "note": "the table prints 0.788 and 0.771, so the sentence is a transcription slip"
+      },
+      {
+        "id": "M25",
+        "family": "manuscript",
+        "statement": "every transported row loses discrimination against its internal counterpart",
+        "location": "Table 5 against Table 2",
+        "status": "PASS",
+        "observed": {
+          "astra_laboratory": 0.842,
+          "late_fusion": 0.826,
+          "grud": 0.804,
+          "logistic": 0.762
+        }
+      },
+      {
+        "id": "M26",
+        "family": "manuscript",
+        "statement": "each subgroup difference is the constrained area minus the unconstrained area",
+        "location": "Table 6 panel A, column 'Difference, pp'",
+        "status": "PASS",
+        "observed": {
+          "age_under_1": {
+            "printed": 2.3,
+            "recomputed": 2.3
+          },
+          "age_1_to_5": {
+            "printed": -0.1,
+            "recomputed": -0.1
+          },
+          "age_6_to_12": {
+            "printed": -0.3,
+            "recomputed": -0.3
+          },
+          "age_13_to_17": {
+            "printed": -0.4,
+            "recomputed": -0.4
+          },
+          "necrotising_enterocolitis": {
+            "printed": 2.6,
+            "recomputed": 2.6
+          },
+          "complicated_appendicitis": {
+            "printed": -0.2,
+            "recomputed": -0.2
+          },
+          "enterostomy": {
+            "printed": 2.5,
+            "recomputed": 2.5
+          },
+          "high_sparsity": {
+            "printed": 2.0,
+            "recomputed": 2.0
+          }
+        },
+        "tolerance": 0.06,
+        "note": "largest gap on the age_under_1 subgroup"
+      },
+      {
+        "id": "M27",
+        "family": "manuscript",
+        "statement": "the four age groups partition the derivation cohort",
+        "location": "Table 6 panel A, rows 'Age ...'",
+        "status": "PASS",
+        "observed": 3412,
+        "expected": 3412
+      },
+      {
+        "id": "M28",
+        "family": "manuscript",
+        "statement": "the note reports the discrimination lost between the lowest and highest sparsity bands",
+        "location": "Table 6 panel B and the sentence after it",
+        "status": "FAIL",
+        "observed": {
+          "late_fusion_drop": 8.5,
+          "astra_drop": 3.5
+        },
+        "expected": {
+          "late_fusion_drop": 7.3,
+          "astra_drop": 2.2
+        },
+        "note": "the same panel gives 8.5 and 3.5"
+      },
+      {
+        "id": "M29",
+        "family": "manuscript",
+        "statement": "the calibration-error reduction in the sparsest band is the printed share",
+        "location": "Abstract and Table 6 panel B",
+        "status": "PASS",
+        "observed": 59.57,
+        "expected": 60.0,
+        "tolerance": 0.6
+      },
+      {
+        "id": "M30",
+        "family": "manuscript",
+        "statement": "the slope advantage in the sparsest band is the printed 0.91 against 0.71",
+        "location": "Abstract and Table 6 panel B",
+        "status": "PASS",
+        "observed": {
+          "astra": 0.91,
+          "late_fusion": 0.71
+        }
+      },
+      {
+        "id": "M31",
+        "family": "manuscript",
+        "statement": "the supported-minus-unaided gap is the difference of the two printed areas",
+        "location": "Table 7 and Sec. 3.7",
+        "status": "PASS",
+        "observed": 13.2,
+        "expected": 13.2,
+        "tolerance": 0.06
+      },
+      {
+        "id": "M32",
+        "family": "manuscript",
+        "statement": "the supported-minus-model gap is the difference of the two printed areas",
+        "location": "Table 7 and Sec. 3.7",
+        "status": "PASS",
+        "observed": 2.3,
+        "expected": 2.3,
+        "tolerance": 0.06
+      },
+      {
+        "id": "M33",
+        "family": "manuscript",
+        "statement": "both printed intervals for the reading gaps contain their point estimates",
+        "location": "Table 7 footnote",
+        "status": "PASS",
+        "observed": {
+          "supported_minus_unaided": [
+            9.6,
+            13.2,
+            16.8
+          ],
+          "supported_minus_model": [
+            0.5,
+            2.3,
+            4.1
+          ]
+        }
+      },
+      {
+        "id": "M34",
+        "family": "manuscript",
+        "statement": "the supported arm gains on both operating columns at once",
+        "location": "Table 7, columns Sensitivity and Specificity",
+        "status": "PASS",
+        "observed": {
+          "sensitivity": [
+            0.702,
+            0.834
+          ],
+          "specificity": [
+            0.694,
+            0.818
+          ]
+        }
+      },
+      {
+        "id": "M35",
+        "family": "manuscript",
+        "statement": "each prospective prevalence is the ratio of its event count to its episode count",
+        "location": "Table 9, rows 'Episodes (events)' and 'Endpoint prevalence, %'",
+        "status": "PASS",
+        "observed": {
+          "silent": 12.687,
+          "open_label": 12.057
+        },
+        "expected": {
+          "silent": 12.7,
+          "open_label": 12.1
+        },
+        "tolerance": 0.05
+      },
+      {
+        "id": "M36",
+        "family": "manuscript",
+        "statement": "the two prospective windows hold different children",
+        "location": "Table 9 footnote",
+        "status": "PASS",
+        "observed": [
+          268,
+          141
+        ],
+        "note": "the counts differ, which is consistent with disjoint windows; identity of children needs the record"
+      },
+      {
+        "id": "M37",
+        "family": "manuscript",
+        "statement": "the model's net benefit at 0.20 follows from its printed operating point",
+        "location": "Abstract and Table 2",
+        "status": "PASS",
+        "observed": 0.0606,
+        "expected": 0.06,
+        "tolerance": 0.002
+      },
+      {
+        "id": "M38",
+        "family": "manuscript",
+        "statement": "the single-marker rule's net benefit at 0.20 follows from its printed operating point",
+        "location": "Abstract and Table 2 row 'C-reactive protein threshold rule'",
+        "status": "FAIL",
+        "observed": 0.0084,
+        "expected": 0.033,
+        "tolerance": 0.002,
+        "note": "the printed 0.033 would need a sensitivity near 0.79 at this specificity"
+      },
+      {
+        "id": "M39",
+        "family": "manuscript",
+        "statement": "the abstract's headline area and interval are the table's first row",
+        "location": "Abstract and Table 2",
+        "status": "PASS",
+        "observed": [
+          0.871,
+          0.856,
+          0.885
+        ],
+        "expected": [
+          0.871,
+          0.856,
+          0.885
+        ]
+      },
+      {
+        "id": "M40",
+        "family": "manuscript",
+        "statement": "the two smallest sites carry the stated 5.4 to 5.5 point advantage",
+        "location": "Abstract and Table 4 panel A",
+        "status": "PASS",
+        "observed": {
+          "D": 5.5,
+          "E": 5.4
+        },
+        "expected": [
+          5.4,
+          5.5
+        ]
+      },
+      {
+        "id": "M41",
+        "family": "manuscript",
+        "statement": "the ablation prose ranks the three component costs as the table does",
+        "location": "Sec. 3.3 against Table 3",
+        "status": "FAIL",
+        "observed": {
+          "prose_cross_attention_cost": 2.9,
+          "prose_time_encoding_cost": 3.5,
+          "prose_site_adapter_cost": 0.9,
+          "table_site_adapter_cost": 1.3
+        },
+        "note": "the prose gives the site adapter 0.9 where the table gives 1.3"
+      }
+    ],
+    "record_checks": [
+      {
+        "id": "R01",
+        "family": "record",
+        "statement": "the derivation event count, site counts and calendar window",
+        "location": "Table 1",
+        "status": "BLOCKED",
+        "note": "needs the five-site derivation cohort"
+      },
+      {
+        "id": "R02",
+        "family": "record",
+        "statement": "the temporal cohort counts and its 12.9% event share",
+        "location": "Table 1",
+        "status": "BLOCKED",
+        "note": "needs the held-out temporal cohort (612 episodes)"
+      },
+      {
+        "id": "R03",
+        "family": "record",
+        "statement": "the external cohort counts and its 11.3% event share",
+        "location": "Table 1",
+        "status": "BLOCKED",
+        "note": "needs the credentialed paediatric intensive-care resource (1042 episodes)"
+      },
+      {
+        "id": "R04",
+        "family": "record",
+        "statement": "the eight comparison rows of the temporal validation table",
+        "location": "Table 2",
+        "status": "BLOCKED",
+        "note": "needs the held-out temporal cohort (612 episodes)"
+      },
+      {
+        "id": "R05",
+        "family": "record",
+        "statement": "the paired interval and p-value for ASTRA against late fusion",
+        "location": "Table 2 footnote",
+        "status": "BLOCKED",
+        "note": "needs the held-out temporal cohort (612 episodes)"
+      },
+      {
+        "id": "R06",
+        "family": "record",
+        "statement": "the ablation rows and their calibration errors",
+        "location": "Table 3",
+        "status": "BLOCKED",
+        "note": "needs the held-out temporal cohort (612 episodes)"
+      },
+      {
+        "id": "R07",
+        "family": "record",
+        "statement": "the additive bound computed from the two single-stream scores",
+        "location": "Table 3 last row",
+        "status": "BLOCKED",
+        "note": "needs the held-out temporal cohort (612 episodes)"
+      },
+      {
+        "id": "R08",
+        "family": "record",
+        "statement": "the interaction gain and its interval",
+        "location": "Sec. 3.3",
+        "status": "BLOCKED",
+        "note": "needs the held-out temporal cohort (612 episodes)"
+      },
+      {
+        "id": "R09",
+        "family": "record",
+        "statement": "the per-site areas for the three arms",
+        "location": "Table 4 panel A",
+        "status": "BLOCKED",
+        "note": "needs the five-site derivation cohort"
+      },
+      {
+        "id": "R10",
+        "family": "record",
+        "statement": "the leave-one-site-out refits",
+        "location": "Table 4 panel B",
+        "status": "BLOCKED",
+        "note": "needs the five-site derivation cohort"
+      },
+      {
+        "id": "R11",
+        "family": "record",
+        "statement": "the four transported rows and their calibration",
+        "location": "Table 5",
+        "status": "BLOCKED",
+        "note": "needs the credentialed paediatric intensive-care resource (1042 episodes)"
+      },
+      {
+        "id": "R12",
+        "family": "record",
+        "statement": "the eight subgroup rows",
+        "location": "Table 6 panel A",
+        "status": "BLOCKED",
+        "note": "needs the held-out temporal cohort (612 episodes)"
+      },
+      {
+        "id": "R13",
+        "family": "record",
+        "statement": "the four sparsity bands and their calibration",
+        "location": "Table 6 panel B",
+        "status": "BLOCKED",
+        "note": "needs the held-out temporal cohort (612 episodes)"
+      },
+      {
+        "id": "R14",
+        "family": "record",
+        "statement": "the three reading arms and both gaps",
+        "location": "Table 7",
+        "status": "BLOCKED",
+        "note": "needs the reader-level table of the three-arm study"
+      },
+      {
+        "id": "R15",
+        "family": "record",
+        "statement": "inter-reader agreement in the unaided arm",
+        "location": "Table 7 footnote",
+        "status": "BLOCKED",
+        "note": "needs the reader-level table of the three-arm study"
+      },
+      {
+        "id": "R16",
+        "family": "record",
+        "statement": "the eight adjudicated cases and their score trajectories",
+        "location": "Table 8",
+        "status": "BLOCKED",
+        "note": "needs the private record of the two prospective windows"
+      },
+      {
+        "id": "R17",
+        "family": "record",
+        "statement": "the two prospective windows",
+        "location": "Table 9",
+        "status": "BLOCKED",
+        "note": "needs the private record of the two prospective windows"
+      },
+      {
+        "id": "R18",
+        "family": "record",
+        "statement": "the threshold fixed at 0.20 before the prospective windows opened",
+        "location": "Sec. 3.9",
+        "status": "BLOCKED",
+        "note": "needs the private record of the two prospective windows"
+      },
+      {
+        "id": "R19",
+        "family": "record",
+        "statement": "the calibration slope and intercept of the constrained model",
+        "location": "Sec. 3.2",
+        "status": "BLOCKED",
+        "note": "needs the held-out temporal cohort (612 episodes)"
+      }
+    ],
+    "conformance_checks": [
+      {
+        "id": "C01",
+        "family": "conformance",
+        "statement": "the declared threshold, window and staleness horizon are the article's",
+        "location": "Sec. 2.1; Sec. 2.3.0.3; Table 2 footnote",
+        "status": "PASS",
+        "observed": {
+          "threshold": 0.2,
+          "window_hours": 168.0,
+          "stale_after_hours": 24.0
+        },
+        "expected": {
+          "threshold": 0.2,
+          "window_hours": 168.0,
+          "stale_after_hours": 24.0
+        }
+      },
+      {
+        "id": "C02",
+        "family": "conformance",
+        "statement": "the effective batch is the product of its three factors",
+        "location": "Engineering default",
+        "status": "PASS",
+        "observed": 32,
+        "expected": 32
+      },
+      {
+        "id": "C03",
+        "family": "conformance",
+        "statement": "every experiment file inherits the declared batch and seed count",
+        "location": "Engineering default",
+        "status": "PASS",
+        "observed": {
+          "ablation_without_cross_attention.yaml": {
+            "batch_size": 32,
+            "grad_accumulation": 1,
+            "world_size": 1,
+            "seeds": 5
+          },
+          "ablation_without_markers.yaml": {
+            "batch_size": 32,
+            "grad_accumulation": 1,
+            "world_size": 1,
+            "seeds": 5
+          },
+          "ablation_without_missingness_token.yaml": {
+            "batch_size": 32,
+            "grad_accumulation": 1,
+            "world_size": 1,
+            "seeds": 5
+          },
+          "ablation_without_site_adapter.yaml": {
+            "batch_size": 32,
+            "grad_accumulation": 1,
+            "world_size": 1,
+            "seeds": 5
+          },
+          "ablation_without_time_encoding.yaml": {
+            "batch_size": 32,
+            "grad_accumulation": 1,
+            "world_size": 1,
+            "seeds": 5
+          },
+          "ablation_without_ultrasound.yaml": {
+            "batch_size": 32,
+            "grad_accumulation": 1,
+            "world_size": 1,
+            "seeds": 5
+          },
+          "baseline_crp_rule.yaml": {
+            "batch_size": 32,
+            "grad_accumulation": 1,
+            "world_size": 1,
+            "seeds": 5
+          },
+          "baseline_grud.yaml": {
+            "batch_size": 32,
+            "grad_accumulation": 1,
+            "world_size": 1,
+            "seeds": 5
+          },
+          "baseline_late_fusion.yaml": {
+            "batch_size": 32,
+            "grad_accumulation": 1,
+            "world_size": 1,
+            "seeds": 5
+          },
+          "baseline_logistic_last_value.yaml": {
+            "batch_size": 32,
+            "grad_accumulation": 1,
+            "world_size": 1,
+            "seeds": 5
+          },
+          "baseline_pas.yaml": {
+            "batch_size": 32,
+            "grad_accumulation": 1,
+            "world_size": 1,
+            "seeds": 5
+          },
+          "baseline_pews.yaml": {
+            "batch_size": 32,
+            "grad_accumulation": 1,
+            "world_size": 1,
+            "seeds": 5
+          },
+          "baseline_tft.yaml": {
+            "batch_size": 32,
+            "grad_accumulation": 1,
+            "world_size": 1,
+            "seeds": 5
+          },
+          "main.yaml": {
+            "batch_size": 32,
+            "grad_accumulation": 1,
+            "world_size": 1,
+            "seeds": 5
+          },
+          "supplementary_external.yaml": {
+            "batch_size": 32,
+            "grad_accumulation": 1,
+            "world_size": 1,
+            "seeds": 5
+          },
+          "supplementary_leave_one_site.yaml": {
+            "batch_size": 32,
+            "grad_accumulation": 1,
+            "world_size": 1,
+            "seeds": 5
+          },
+          "supplementary_open_label.yaml": {
+            "batch_size": 32,
+            "grad_accumulation": 1,
+            "world_size": 1,
+            "seeds": 5
+          },
+          "supplementary_reader_study.yaml": {
+            "batch_size": 32,
+            "grad_accumulation": 1,
+            "world_size": 1,
+            "seeds": 5
+          },
+          "supplementary_silent_mode.yaml": {
+            "batch_size": 32,
+            "grad_accumulation": 1,
+            "world_size": 1,
+            "seeds": 5
+          },
+          "supplementary_subgroups.yaml": {
+            "batch_size": 32,
+            "grad_accumulation": 1,
+            "world_size": 1,
+            "seeds": 5
+          }
+        }
+      },
+      {
+        "id": "C04",
+        "family": "conformance",
+        "statement": "the two attention directions of Eq. (2) are both enabled in the main configuration",
+        "location": "Sec. 2.3.0.2, Eq. (2)",
+        "status": "PASS",
+        "observed": {
+          "use_cross_attention": true,
+          "heads": 4,
+          "d_model": 128
+        }
+      },
+      {
+        "id": "C05",
+        "family": "conformance",
+        "statement": "the smoke configuration is marked test-only and is smaller than the main run",
+        "location": "pytest smoke path",
+        "status": "PASS",
+        "observed": {
+          "batch_size": 4,
+          "epochs": 2,
+          "marked": true
+        }
+      },
+      {
+        "id": "C06",
+        "family": "conformance",
+        "statement": "no configuration carries a value equal to a reported metric",
+        "location": "Table 2 and Table 3",
+        "status": "PASS",
+        "observed": "none"
+      }
+    ]
+  },
+  "verification_layer_2": {
+    "what": "the released modules executed on tensors built inside the check process, compared with independently computed answers",
+    "execution_checks": [
+      {
+        "id": "E01",
+        "family": "code",
+        "statement": "the fused model returns one finite probability per episode for several batch sizes",
+        "location": "Sec. 2.3.0.1, Eq. (1)",
+        "status": "PASS",
+        "observed": {
+          "batch_shapes": {
+            "1": [
+              1
+            ],
+            "3": [
+              3
+            ],
+            "8": [
+              8
+            ]
+          }
+        }
+      },
+      {
+        "id": "E02",
+        "family": "code",
+        "statement": "duplicating every reading leaves the probability unchanged",
+        "location": "Sec. 2.3.0.1, count-blind constraint",
+        "status": "PASS",
+        "observed": {
+          "replication_deviation": 5.960464477539063e-08,
+          "permutation_deviation": 0.0
+        },
+        "tolerance": 1e-05
+      },
+      {
+        "id": "E03",
+        "family": "code",
+        "statement": "the count-blind probe detects an estimator that reads the count",
+        "location": "Sec. 2.3.0.1, count-blind constraint",
+        "status": "PASS",
+        "observed": {
+          "deviation_on_count_dependent_estimator": 0.08017218112945557
+        }
+      },
+      {
+        "id": "E04",
+        "family": "code",
+        "statement": "a structurally absent stream still produces a score and changes it",
+        "location": "Table 1 footnote; Sec. 2.3.0.3",
+        "status": "PASS",
+        "observed": {
+          "with_ultrasound": [
+            0.4323056638240814,
+            0.4281392991542816,
+            0.4283052384853363,
+            0.4323863685131073
+          ],
+          "without_ultrasound": [
+            0.42920058965682983,
+            0.4319070279598236,
+            0.42692553997039795,
+            0.4314572811126709
+          ],
+          "changed": true
+        }
+      },
+      {
+        "id": "E05",
+        "family": "code",
+        "statement": "the missingness token fires beyond 24 hours and not at 24 hours",
+        "location": "Sec. 2.3.0.3",
+        "status": "PASS",
+        "observed": {
+          "at_24_hours_stale": false,
+          "at_25_hours_stale": true
+        }
+      },
+      {
+        "id": "E06",
+        "family": "code",
+        "statement": "the composite loss reaches every trainable parameter",
+        "location": "Eq. (3)",
+        "status": "PASS",
+        "observed": {
+          "parameters_without_gradient": 0,
+          "parameters_with_zero_gradient": 4,
+          "example_zero": [
+            "ultrasound_encoder.adapter.down.weight",
+            "marker_encoder.adapter.down.weight",
+            "ultrasound_pool.score.bias",
+            "marker_pool.score.bias"
+          ],
+          "loss": {
+            "total": 1.0155625343322754,
+            "bce": 0.7109361886978149,
+            "calibration": 0.2588253617286682,
+            "site": 1.7521365880966187
+          }
+        }
+      },
+      {
+        "id": "E07",
+        "family": "code",
+        "statement": "an optimiser step moves the weights",
+        "location": "Sec. 2.4 is blank; the schedule is a stated default",
+        "status": "PASS",
+        "observed": {
+          "parameters_moved": 61,
+          "parameters": 64
+        }
+      },
+      {
+        "id": "E08",
+        "family": "code",
+        "statement": "a checkpoint restores the logits and carries the seed",
+        "location": "Atomic checkpoint contract",
+        "status": "PASS",
+        "observed": {
+          "seed": 99,
+          "max_logit_gap": 0.0
+        }
+      },
+      {
+        "id": "E09",
+        "family": "code",
+        "statement": "one batch is fitted below half its starting loss inside 120 steps",
+        "location": "Execution check, not a reported result",
+        "status": "PASS",
+        "observed": {
+          "first_loss": 0.7067844271659851,
+          "last_loss": 2.7230416890233755e-05,
+          "batches": 120
+        }
+      },
+      {
+        "id": "E10",
+        "family": "code",
+        "statement": "the class-weighted cross-entropy is ln 2 when balanced and larger when not",
+        "location": "Sec. 2.3.0.4, effective-number weights",
+        "status": "PASS",
+        "observed": {
+          "balanced": 0.6931471824645996,
+          "imbalanced": 1.2111918926239014,
+          "log_two": 0.6931471805599453
+        }
+      },
+      {
+        "id": "E11",
+        "family": "code",
+        "statement": "the batch calibration penalty vanishes on an aligned batch",
+        "location": "Sec. 2.3.0.4, L_cal",
+        "status": "PASS",
+        "observed": {
+          "aligned": 1.7763568394002505e-15,
+          "reversed": 0.3999998867511749
+        }
+      },
+      {
+        "id": "E12",
+        "family": "code",
+        "statement": "expected calibration error is small when calibrated and large when shifted",
+        "location": "Table 2, column ECE",
+        "status": "PASS",
+        "observed": {
+          "calibrated": 0.02223567509651184,
+          "shifted": 0.22849361550807956
+        }
+      },
+      {
+        "id": "E13",
+        "family": "code",
+        "statement": "the Brier score equals its definition on a hand-built example",
+        "location": "Table 2, column Brier",
+        "status": "PASS",
+        "observed": {
+          "brier": 0.125,
+          "expected": 0.125
+        }
+      },
+      {
+        "id": "E14",
+        "family": "code",
+        "statement": "the area under the curve equals the pairwise tally including ties",
+        "location": "Table 2, column AUROC",
+        "status": "PASS",
+        "observed": {
+          "auroc": 0.8333333333333334,
+          "pairwise": 0.8333333333333334
+        }
+      },
+      {
+        "id": "E15",
+        "family": "code",
+        "statement": "average precision equals the step formula on a hand-built example",
+        "location": "Table 2, column AUPRC",
+        "status": "PASS",
+        "observed": {
+          "auprc": 0.8333333333333333,
+          "step_formula": 0.8333333333333333
+        }
+      },
+      {
+        "id": "E16",
+        "family": "code",
+        "statement": "the DeLong interval brackets its point estimate and has positive variance",
+        "location": "Table 2, bracketed intervals",
+        "status": "PASS",
+        "observed": {
+          "auroc": 0.8224455611390284,
+          "variance": 0.00041676744606636913,
+          "low": 0.7824331254830139,
+          "high": 0.862457996795043
+        }
+      },
+      {
+        "id": "E17",
+        "family": "code",
+        "statement": "net benefit equals the counted form on a hand-built cohort",
+        "location": "Abstract, net benefit at 0.20",
+        "status": "PASS",
+        "observed": {
+          "net_benefit": 0.29166667722165585,
+          "manual_counts": 0.29166666666666663
+        }
+      },
+      {
+        "id": "E18",
+        "family": "code",
+        "statement": "the predictive-value identities close against counted confusion cells",
+        "location": "Table 2, columns PPV and NPV",
+        "status": "PASS",
+        "observed": {
+          "ppv": 0.37632677789723157,
+          "npv": 0.9647417619201111
+        }
+      },
+      {
+        "id": "E19",
+        "family": "code",
+        "statement": "the recalibration slope is one for a well-specified predictor and below one when overconfident",
+        "location": "Table 2, column Slope",
+        "status": "PASS",
+        "observed": {
+          "well_specified": 1.0427010219565085,
+          "overconfident": 0.4225624195417186
+        }
+      },
+      {
+        "id": "E20",
+        "family": "code",
+        "statement": "Cohen's kappa equals its closed form on a hand-built table",
+        "location": "Table 7 footnote, kappa 0.58",
+        "status": "PASS",
+        "observed": {
+          "kappa": 0.5
+        }
+      },
+      {
+        "id": "E21",
+        "family": "code",
+        "statement": "the endpoint closes at day seven and excludes day eight",
+        "location": "Sec. 2.1",
+        "status": "PASS",
+        "observed": {
+          "day_seven": 1,
+          "day_seven_plus_one_hour": 0,
+          "treated": 0
+        }
+      },
+      {
+        "id": "E22",
+        "family": "code",
+        "statement": "the index-time filter removes every later observation",
+        "location": "Eq. (1)",
+        "status": "PASS",
+        "observed": {
+          "ultrasound_kept": 2,
+          "markers_kept": 2
+        }
+      },
+      {
+        "id": "E23",
+        "family": "code",
+        "statement": "the unobserved stream-day share matches a hand-counted four-day episode",
+        "location": "Table 1 and Table 6 panel B",
+        "status": "PASS",
+        "observed": {
+          "days": 4,
+          "ultrasound_fraction": 0.75,
+          "marker_fraction": 0.25,
+          "pooled": 0.5
+        }
+      },
+      {
+        "id": "E24",
+        "family": "code",
+        "statement": "the gradient reversal flips the sign at the requested strength",
+        "location": "Sec. 2.3.0.3",
+        "status": "PASS",
+        "observed": {
+          "gradient": -0.5
+        }
+      },
+      {
+        "id": "E25",
+        "family": "code",
+        "statement": "seeding makes two batch builds identical",
+        "location": "Single seeding utility",
+        "status": "PASS",
+        "observed": {
+          "max_gap": 0.0
+        }
+      },
+      {
+        "id": "E26",
+        "family": "code",
+        "statement": "the site head reaches the encoder through the reversal path",
+        "location": "Sec. 2.3.0.3",
+        "status": "PASS",
+        "observed": {
+          "encoder_gradient_norm": 2.925379991531372,
+          "site_head_gradient_norm": 26.29767608642578
+        }
+      },
+      {
+        "id": "E27",
+        "family": "code",
+        "statement": "the model size sits in the range the default configuration declares",
+        "location": "Engineering default",
+        "status": "PASS",
+        "observed": {
+          "parameters": 19610,
+          "buffers": [
+            "reversal_strength",
+            "ultrasound_encoder.time.periods",
+            "marker_encoder.time.periods"
+          ]
+        }
+      },
+      {
+        "id": "E28",
+        "family": "code",
+        "statement": "every registered arm builds, fits where it has a fit, and returns a finite score",
+        "location": "Table 2, all eight rows",
+        "status": "PASS",
+        "observed": {
+          "arms": [
+            "astra",
+            "crp",
+            "grud",
+            "late_fusion",
+            "logistic_last_value",
+            "pas",
+            "pews",
+            "tft"
+          ],
+          "first_scores": {
+            "astra": [
+              0.4354,
+              0.4388
+            ],
+            "late_fusion": [
+              0.3998,
+              0.3887
+            ],
+            "tft": [
+              0.6095,
+              0.6103
+            ],
+            "grud": [
+              0.4669,
+              0.4637
+            ],
+            "logistic_last_value": [
+              0.6199,
+              0.5382
+            ],
+            "pews": [
+              -1.0
+            ],
+            "pas": [
+              -1.0
+            ],
+            "crp": [
+              1.0,
+              1.0
+            ]
+          }
+        }
+      },
+      {
+        "id": "E29",
+        "family": "code",
+        "statement": "a fresh site probe fits on frozen representations and returns an accuracy",
+        "location": "Sec. 2.3.0.1, the position test",
+        "status": "PASS",
+        "observed": {
+          "accuracy": 0.3333333432674408,
+          "majority": 0.3333333333333333,
+          "lift": 9.934107481068821e-09,
+          "episodes": 3
+        }
+      },
+      {
+        "id": "E30",
+        "family": "code",
+        "statement": "leave-one-site-out refits and scores the held-out site",
+        "location": "Table 4 panel B",
+        "status": "PASS",
+        "observed": {
+          "sites": [
+            "A",
+            "B"
+          ],
+          "auroc": [
+            0.25,
+            0.25
+          ]
+        }
+      },
+      {
+        "id": "E31",
+        "family": "code",
+        "statement": "the reading study summarises three arms and returns both gaps",
+        "location": "Table 7",
+        "status": "PASS",
+        "observed": {
+          "rows": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "supported_minus_unaided": 0.0
+        }
+      },
+      {
+        "id": "E32",
+        "family": "code",
+        "statement": "the three appendix properties return finite numbers on draws from their model",
+        "location": "Sec. 2.3.0.1, appendix properties",
+        "status": "PASS",
+        "observed": {
+          "gap_coefficient": -0.1651,
+          "counting_bias": 0.0268,
+          "admissible_risk": 0.637,
+          "earned": 0.02568
+        }
+      },
+      {
+        "id": "E33",
+        "family": "code",
+        "statement": "an episode table survives a write and read, and a straddling patient is refused",
+        "location": "Table 1, patient-level split",
+        "status": "PASS",
+        "observed": {
+          "episodes": 4,
+          "straddle_detected": true
+        }
+      },
+      {
+        "id": "E34",
+        "family": "code",
+        "statement": "the eight pre-specified subgroups are defined once each",
+        "location": "Table 6 panel A",
+        "status": "PASS",
+        "observed": {
+          "strata": [
+            "age_under_1",
+            "age_1_to_5",
+            "age_6_to_12",
+            "age_13_to_17",
+            "necrotising_enterocolitis",
+            "complicated_appendicitis",
+            "enterostomy",
+            "high_sparsity"
+          ]
+        }
+      }
+    ],
+    "summary": {
+      "PASS": 34,
+      "FAIL": 0,
+      "NOT_RUN": 0,
+      "BLOCKED": 0
+    }
+  },
+  "hygiene": {
+    "checks": [
+      {
+        "id": "H01",
+        "family": "hygiene",
+        "statement": "no file carries an absolute path from a build host",
+        "location": "Repository scan",
+        "status": "PASS",
+        "observed": "none"
+      },
+      {
+        "id": "H02",
+        "family": "hygiene",
+        "statement": "no file carries a credential-shaped string or an address",
+        "location": "Repository scan",
+        "status": "PASS",
+        "observed": "none"
+      },
+      {
+        "id": "H03",
+        "family": "hygiene",
+        "statement": "README.md is the only markdown file in the tree",
+        "location": "Repository scan",
+        "status": "PASS",
+        "observed": "none"
+      },
+      {
+        "id": "H04",
+        "family": "hygiene",
+        "statement": "no file carries a phrase that frames the code as someone else's work",
+        "location": "Repository scan",
+        "status": "PASS",
+        "observed": "none"
+      },
+      {
+        "id": "H05",
+        "family": "hygiene",
+        "statement": "no file carries an emoji",
+        "location": "Repository scan",
+        "status": "PASS",
+        "observed": "none"
+      },
+      {
+        "id": "H06",
+        "family": "hygiene",
+        "statement": "no file carries an unfinished marker",
+        "location": "Repository scan",
+        "status": "PASS",
+        "observed": "none"
+      },
+      {
+        "id": "H07",
+        "family": "hygiene",
+        "statement": "every function in the package has a body that computes something",
+        "location": "Repository scan",
+        "status": "PASS",
+        "observed": "none"
+      },
+      {
+        "id": "H08",
+        "family": "hygiene",
+        "statement": "no block of six statements is repeated across two modules",
+        "location": "Repository scan",
+        "status": "PASS",
+        "observed": "none"
+      },
+      {
+        "id": "H09",
+        "family": "hygiene",
+        "statement": "every module is imported by another module, a test or a command",
+        "location": "Repository scan",
+        "status": "PASS",
+        "observed": "none"
+      },
+      {
+        "id": "H10",
+        "family": "hygiene",
+        "statement": "no episode table, record export or archive ships with the release",
+        "location": "Data statement in the README",
+        "status": "PASS",
+        "observed": "none"
+      }
+    ],
+    "scanned_files": 146,
+    "source_modules": 90
+  },
+  "reproduce": {
+    "verify": "bash scripts/verify.sh",
+    "tests": "pytest -q",
+    "train": "bash scripts/train.sh configs/experiments/main.yaml <cohort.jsonl>",
+    "evaluate": "bash scripts/evaluate.sh configs/experiments/main.yaml <cohort.jsonl>"
+  }
+}

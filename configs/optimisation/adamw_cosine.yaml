@@ -1,0 +1,18 @@
+# No schedule is reported in the article; every value here is a stated default and the
+# report records them as such.
+optimizer: adamw
+learning_rate: 0.0003
+weight_decay: 0.01
+warmup_steps: 500
+scheduler: cosine
+precision: bf16
+grad_clip: 1.0
+ema_decay: 0.0
+batch_size: 32
+grad_accumulation: 1
+world_size: 1
+effective_batch: 32
+lambda_cal: 0.5
+lambda_site: 0.1
+reversal_ramp_epochs: 5
+seeds: [20260825, 20260826, 20260827, 20260828, 20260829]
